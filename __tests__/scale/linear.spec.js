@@ -1,4 +1,5 @@
-import { createLinear, interpolateNumber } from '../../src/scale';
+import { createLinear, interpolateNumber, interpolateColor } from '../../src/scale';
+import { createDiv } from '../utils';
 
 function nice(domain, niceDomain, tickCount) {
   const scale = createLinear({
@@ -46,6 +47,15 @@ describe('createLinear', () => {
     expect(s(1)).toBe('z');
     expect(s(0.5)).toBe('m');
   });
+
+  test('Test the return value of the interpolateColor function', () => {
+    const color = interpolateColor(0.6, [0, 255, 255], [255, 255, 0]);
+    const node = createDiv();
+    node.style.height = '200px'
+    node.style.width = '200px'
+    node.style.backgroundColor = color;
+    console.log(color);
+  })
 
   test('scale.nice(tickCount) extends domain for better ticks.', () => {
     expect(nice([1.1, 10.9], [1, 11], 10)).toBeTruthy();

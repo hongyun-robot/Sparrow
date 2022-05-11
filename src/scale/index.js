@@ -1,3 +1,5 @@
-export { createLinear } from './linear';
+export * from './linear';
+export * from './ordinal';
+export * from './time';
 export { interpolateNumber } from './interpolate'
-export { ticks } from './utils'
+export * from './utils'

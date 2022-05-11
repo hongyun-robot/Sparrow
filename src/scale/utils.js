@@ -27,10 +27,15 @@ export function tickStep(min, max, count) {
   return step1;
 }
 
+/**
+ * 刻度尺的值
+ * @param min 范围最小值
+ * @param max 范围最大值
+ * @param count 总共有几个刻度
+ * @returns {any[]} [2, 4, 6, 8, 10]
+ */
 export function ticks(min, max, count) {
   const step = tickStep(min, max, count);
-  console.log('tickStep：', step);
-  console.log(min, max, count);
   // 让 start 和 stop 都是 step 的整数倍
   // 这样生产的 ticks 都是 step 的整数倍
   // 可以让可读性更强
@@ -44,6 +49,36 @@ export function ticks(min, max, count) {
   return values;
 }
 
+// 简单解决 js 的精度问题：0.1 + 0.2 !== 0.3
 export function round(n) {
   return Math.round(n * 1e12) / 1e12;
+}
+
+/**
+ * 通过刻度间隔去改变定义域范围，使得最小值和最大值都是刻度间隔的整数倍
+ * @param domain
+ * @param interval
+ * @returns {*[]}
+ */
+export function nice(domain, interval) {
+  const [min, max] = domain;
+  return [interval.floor(min), interval.ceil(max)];
+}
+
+export function ceil(n, base) {
+  return base * Math.ceil(n / base);
+}
+
+export function floor(n, base) {
+  return base * Math.floor(n / base);
+}
+
+/**
+ * 通过对象序列化结果判断两个对象是否相等
+ * @param a
+ * @param b
+ * @returns {boolean}
+ */
+export function equal(a, b) {
+  return JSON.stringify(a) === JSON.stringify(b);
 }
